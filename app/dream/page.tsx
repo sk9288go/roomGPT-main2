@@ -3,12 +3,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { Checkbox, Col, Row } from "antd";
 import type { CheckboxValueType } from "antd/es/checkbox/Group";
 import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 import Link from "next/link";
 import styles from "../../components/BrowserBar.module.css";
 import classNames from "classnames";
 import Image from "next/image";
-
-//import { useRouter } from "next/router";
 
 import ScrollContainer from "react-indiana-drag-scroll";
 
@@ -17,9 +16,10 @@ const BrowserBar = () => {
 
   const [bar_close, setBar_close] = useState(false);
 
-  const [drawer_1, setDrawer_1] = useState(true);
-  const [drawer_2, setDrawer_2] = useState(true);
-  const [drawer_3, setDrawer_3] = useState(true);
+  const [drawer_1, setDrawer_1] = useState(false);
+  const [drawer_2, setDrawer_2] = useState(false);
+  const [drawer_3, setDrawer_3] = useState(false);
+  const [drawer_4, setDrawer_4] = useState(false);
 
   // ==================================== PromptText ==========================================================
   const [PromptText, setPromptText] = useState<string>();
@@ -106,7 +106,7 @@ const BrowserBar = () => {
           <div className={styles.BrowserBar_box}>
             <div className={styles.BrowserBar_head}>
               <i className="xi-pen-o"></i>
-              <p>Generate your Architecture!</p>
+              <p>Unleash your AImagination!</p>
               <button
                 onClick={() => {
                   setBar_close(true);
@@ -157,16 +157,16 @@ const BrowserBar = () => {
                             <ScrollContainer className="scroll-container">
                               <Checkbox.Group onChange={onChangeImpact}>
                                 <Col>
-                                  <Checkbox value="Junglim">Junglim</Checkbox>
+                                  <Checkbox value="<Junglim exterior>(1.0)">Junglim exterior</Checkbox>
                                 </Col>
                                 <Col>
-                                  <Checkbox value="Atmospheric">Atmospheric</Checkbox>
+                                  <Checkbox value="<Junglim Interior>(1.0)">Junglim Interior</Checkbox>
                                 </Col>
                                 <Col>
-                                  <Checkbox value="Cinematic">Cinematic</Checkbox>
+                                  <Checkbox value="<Junglim Starfield>">별마당</Checkbox>
                                 </Col>
                                 <Col>
-                                  <Checkbox value="Parametric">Parametric</Checkbox>
+                                  <Checkbox value="White Modern">White Modern</Checkbox>
                                 </Col>
                                 <Col>
                                   <Checkbox value="Futurism">Futurism</Checkbox>
@@ -187,7 +187,7 @@ const BrowserBar = () => {
                                   <Checkbox value="Snowing">Snowing</Checkbox>
                                 </Col>
                                 <Col>
-                                  <Checkbox value="in City">in City</Checkbox>
+                                  <Checkbox value="Sunny">Sunny</Checkbox>
                                 </Col>
                                 <Col>
                                   <Checkbox value="Studio Light">Studio Light</Checkbox>
@@ -217,31 +217,10 @@ const BrowserBar = () => {
                                   <Checkbox value="Jean Nouvel">Jean Nouvel</Checkbox>
                                 </Col>
                                 <Col>
+                                  <Checkbox value="Ando Tadao">Ando Tadao</Checkbox>
+                                </Col>
+                                <Col>
                                   <Checkbox value="SANAA">SANAA</Checkbox>
-                                </Col>
-                              </Checkbox.Group>
-                            </ScrollContainer>
-                            <i className="xi-arrows-h"></i>
-                          </div>
-
-                          <h3>상세</h3>
-                          <div className={styles.Material_wrap}>
-                            <ScrollContainer className="scroll-container">
-                              <Checkbox.Group onChange={onChangeDetails}>
-                                <Col>
-                                  <Checkbox value="Detailed">Detailed</Checkbox>
-                                </Col>
-                                <Col>
-                                  <Checkbox value="Finely Detailed">Finely Detailed</Checkbox>
-                                </Col>
-                                <Col>
-                                  <Checkbox value="Highly Detailed">Highly Detailed</Checkbox>
-                                </Col>
-                                <Col>
-                                  <Checkbox value="Detail">Detail</Checkbox>
-                                </Col>
-                                <Col>
-                                  <Checkbox value="Texture">Texture</Checkbox>
                                 </Col>
                               </Checkbox.Group>
                             </ScrollContainer>
@@ -341,6 +320,20 @@ const BrowserBar = () => {
                     }}
                   >
                     <i className="xi-tune"></i>
+                    <p>Sketch</p>
+                    <i className="xi-angle-down"></i>
+                  </button>
+                </div>
+
+                <br />
+                <div className={classNames({ [styles.drawer_wrap]: true, [styles.open]: drawer_4 })}>
+                  <button
+                    className={styles.drawer_btn}
+                    onClick={() => {
+                      setDrawer_4(!drawer_4);
+                    }}
+                  >
+                    <i className="xi-tune"></i>
                     <p>Size 입력</p>
                     <i className="xi-angle-down"></i>
                   </button>
@@ -392,6 +385,7 @@ const BrowserBar = () => {
 
         <div className="carouselContainer">{/* Place your carousel component here */}</div>
       </main>
+      <Footer />
     </div>
   );
 };

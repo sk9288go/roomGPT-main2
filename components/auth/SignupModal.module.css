@@ -1,12 +1,12 @@
 .SignupModal_wrap {
-  width: 640px;
-  padding: 25px 0 16px;
-  background-color: #e6e6e6;
-  border-radius: 7px;
+  width: 800px;
+  height: 500px;
+  background-color: #ececec;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  box-shadow: #cacaca 5px 5px 5px;
 }
 .h2_wrap {
   display: flex;
@@ -16,11 +16,11 @@
   margin-bottom: 24px;
 }
 .h2_wrap h2 {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 600;
 }
 .h2_wrap p {
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 400;
 }
 
@@ -40,7 +40,7 @@
 .input_box > p {
   width: 150px;
   text-align: center;
-  font-size: 14px;
+  font-size: 18px;
 }
 .input_box input {
   width: 284px;
@@ -56,7 +56,7 @@
   background-color: #e6e6e6;
 }
 .input_box input::placeholder {
-  font-size: 14px;
+  font-size: 16px;
   color: #8d8d8d;
 }
 
@@ -73,7 +73,7 @@
   width: calc(100% - 180px);
 }
 .input_wrap p {
-  font-size: 14px;
+  font-size: 16px;
   color: rgba(44, 44, 44, 0.5);
 }
 
@@ -85,9 +85,9 @@
 }
 .btn_wrap button {
   width: 80px;
-  height: 24px;
+  height: 28px;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 18px;
 }
 .btn_wrap .White_btn {
   border: solid 0.2px #e0e0e0;

@@ -1,12 +1,12 @@
 .LoginModal_wrap {
-  width: 600px;
-  height: 400px;
-  background-color: #e6e6e6;
-  border-radius: 7px;
+  width: 800px;
+  height: 500px;
+  background-color: #ececec;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  box-shadow: #cacaca 5px 5px 5px;
 }
 .h2_wrap {
   display: flex;
@@ -16,11 +16,11 @@
   margin-bottom: 20px;
 }
 .h2_wrap h2 {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 600;
 }
 .h2_wrap p {
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 400;
 }
 .logo_wrap {
@@ -37,7 +37,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 12px;
+  margin-bottom: 15px;
 }
 .input_wrap input {
   width: 300px;
@@ -45,14 +45,14 @@
   padding: 0 16px;
   border-radius: 2px;
   border: solid 1px #e0e0e0;
-  font-size: 14px;
+  font-size: 18px;
 }
 .input_wrap input:focus {
   border: solid 2px #6cbe2e;
   background-color: #e6e6e6;
 }
 .input_list input::placeholder {
-  font-size: 14px;
+  font-size: 18px;
   color: #8d8d8d;
 }
 
@@ -66,7 +66,7 @@
   width: 80px;
   height: 24px;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 16px;
 }
 .btn_wrap .White_btn {
   border: solid 0.2px #e0e0e0;

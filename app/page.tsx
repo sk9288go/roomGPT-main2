@@ -9,6 +9,7 @@ import { Carousel } from "react-responsive-carousel";
 import React, { useState } from "react";
 import TypistAnim from "../components/TypistAnim";
 //import { useLanguage } from "../components/languageProvider";
+import Card from "../components/card";
 
 const images = Array.from({ length: 13 }, (_, i) => `/generatedpic (${i + 1}).png`);
 
@@ -22,10 +23,10 @@ export default function Page() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 mx-40 max-w-8xl">
       <Header />
-      <main className="flex flex-1 w-full px-4 mt-20 sm:mt-20 background-gradient">
-        <div className="flex justify-between w-full mr-20">
-          <div className="flex flex-col justify-center flex-1 px-4 mr-20 text-left">
-            <h1 className="max-w-4xl px-4 mx-auto text-5xl font-bold tracking-normal text-gray-800 font-display sm:text-5xl">
+      <main className="flex flex-col flex-1 w-full px-4 sm:mt-20 background-gradient">
+        <div className="flex justify-between w-full mt-32">
+          <div className="flex flex-col justify-center flex-1 px-20 mr-1 text-left">
+            <h1 className="px-4 ml-10 text-5xl font-bold tracking-normal text-gray-800 font-display sm:text-5xl">
               <span className="relative text-green-600 whitespace-nowrap sm:text-6xl">
                 <SquigglyLines />
                 <span className="relative"> EasyAI</span>
@@ -39,14 +40,14 @@ export default function Page() {
 
             {/* Bullet-pointed h2s */}
             <br />
-            <div className="flex items-start mt-6 ml-40">
+            <div className="flex items-start mt-6 ml-20">
               <Image src="/vercelLogo.svg" width={25} height={15} alt="Bullet Point" />
               <h2 className="max-w-xl ml-3 text-2xl leading-7 text-gray-800">
                 Create <b>Architectural images</b> <br /> from text, image, sketch in under a minute
               </h2>
             </div>
 
-            <div className="flex items-start mt-6 ml-40">
+            <div className="flex items-start mt-6 ml-20">
               <Image src="/vercelLogo.svg" width={25} height={15} alt="Bullet Point" />
               <h2 className="max-w-xl ml-3 text-2xl leading-7 text-gray-800">
                 Our Architectural <b>AI image models</b> <br />
@@ -54,7 +55,7 @@ export default function Page() {
               </h2>
             </div>
 
-            <div className="flex items-start mt-6 ml-40">
+            <div className="flex items-start mt-6 ml-20">
               <Image src="/vercelLogo.svg" width={25} height={15} alt="Bullet Point" />
               <h2 className="max-w-xl ml-3 text-2xl leading-7 text-gray-800">
                 Save images and <b>Share with others on board page</b>
@@ -71,7 +72,7 @@ export default function Page() {
             </Link>
           </div>
 
-          <div className="relative flex flex-col justify-center flex-1">
+          <div className="relative flex flex-col justify-center flex-1 mr-16">
             <Carousel autoPlay={true} infiniteLoop={true} showThumbs={false} selectedItem={currentIndex} onChange={handleChange}>
               {images.map((imgSrc, index) => (
                 <div key={index}>
@@ -82,6 +83,25 @@ export default function Page() {
           </div>
         </div>
       </main>
+
+      <div className="w-full px-4 mt-60 mb-100 min-h-[400px]">
+        {" "}
+        {/* increased margin-top and added min-height */}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <Card
+            title="About EasyAI Architectural Images"
+            content="Our AI-powered platform allows you to create architectural images with unparalleled accuracy and precision."
+          />
+          <Card title="Precision and Quality" content="Dive deep into the world of architectural design with our state-of-the-art AI models." />
+          <Card title="From Concept to Visualization" content="From concept to final visualization, make your architectural dreams come true with EasyAI." />
+          <Card
+            title="About EasyAI Architectural Images"
+            content="Our AI-powered platform allows you to create architectural images with unparalleled accuracy and precision."
+          />
+          <Card title="Precision and Quality" content="Dive deep into the world of architectural design with our state-of-the-art AI models." />
+          <Card title="From Concept to Visualization" content="From concept to final visualization, make your architectural dreams come true with EasyAI." />
+        </div>
+      </div>
       <Footer />
     </div>
   );
