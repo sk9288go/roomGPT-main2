@@ -1,208 +1,399 @@
 "use client";
-
-import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
-import { useState } from "react";
-import { UploadDropzone } from "react-uploader";
-import { Uploader } from "uploader";
-import { CompareSlider } from "../../components/CompareSlider";
-import Footer from "../../components/Footer";
+import React, { useState, useEffect, useRef } from "react";
+import { Checkbox, Col, Row } from "antd";
+import type { CheckboxValueType } from "antd/es/checkbox/Group";
 import Header from "../../components/Header";
-import LoadingDots from "../../components/LoadingDots";
-import ResizablePanel from "../../components/ResizablePanel";
-import Toggle from "../../components/Toggle";
-import appendNewToName from "../../utils/appendNewToName";
-import downloadPhoto from "../../utils/downloadPhoto";
-import DropDown from "../../components/DropDown";
-import { roomType, rooms, themeType, themes } from "../../utils/dropdownTypes";
+import Link from "next/link";
+import styles from "../../components/BrowserBar.module.css";
+import classNames from "classnames";
+import Image from "next/image";
 
-// Configuration for the uploader
-const uploader = Uploader({
-  apiKey: !!process.env.NEXT_PUBLIC_UPLOAD_API_KEY ? process.env.NEXT_PUBLIC_UPLOAD_API_KEY : "free",
-});
+//import { useRouter } from "next/router";
 
-const options = {
-  maxFileCount: 1,
-  mimeTypes: ["image/jpeg", "image/png", "image/jpg"],
-  editor: { images: { crop: false } },
-  styles: {
-    colors: {
-      primary: "#199a28", // Primary buttons & links
-      error: "#d23f4d", // Error messages
-      shade100: "#000000", // Standard text
-      shade200: "#fffe", // Secondary button text
-      shade300: "#fffd", // Secondary button text (hover)
-      shade400: "#000000cc", // Welcome text
-      shade500: "#fff9", // Modal close button
-      shade600: "#fff7", // Border
-      shade700: "#ffffff", // Progress indicator background
-      shade800: "#ffffff", // File item background
-      shade900: "#ffff", // Various (draggable crop buttons, etc.)
-    },
-  },
-};
+import ScrollContainer from "react-indiana-drag-scroll";
 
-export default function DreamPage() {
-  const [originalPhoto, setOriginalPhoto] = useState<string | null>(null);
-  const [restoredImage, setRestoredImage] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [restoredLoaded, setRestoredLoaded] = useState<boolean>(false);
-  const [sideBySide, setSideBySide] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const [photoName, setPhotoName] = useState<string | null>(null);
-  const [theme, setTheme] = useState<themeType>("Modern");
-  const [room, setRoom] = useState<roomType>("Living Room");
+const BrowserBar = () => {
+  //const router = useRouter();
 
-  const UploadDropZone = () => (
-    <UploadDropzone
-      uploader={uploader}
-      options={options}
-      onUpdate={(file) => {
-        if (file.length !== 0) {
-          setPhotoName(file[0].originalFile.originalFileName);
-          setOriginalPhoto(file[0].fileUrl.replace("raw", "thumbnail"));
-          generatePhoto(file[0].fileUrl.replace("raw", "thumbnail"));
-        }
-      }}
-      width="670px"
-      height="250px"
-    />
-  );
+  const [bar_close, setBar_close] = useState(false);
 
-  async function generatePhoto(fileUrl: string) {
-    await new Promise((resolve) => setTimeout(resolve, 200));
-    setLoading(true);
-    const res = await fetch("/generate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ imageUrl: fileUrl, theme, room }),
-    });
+  const [drawer_1, setDrawer_1] = useState(true);
+  const [drawer_2, setDrawer_2] = useState(true);
+  const [drawer_3, setDrawer_3] = useState(true);
 
-    let newPhoto = await res.json();
-    if (res.status !== 200) {
-      setError(newPhoto);
-    } else {
-      setRestoredImage(newPhoto[1]);
-    }
-    setTimeout(() => {
-      setLoading(false);
-    }, 1300);
-  }
+  // ==================================== PromptText ==========================================================
+  const [PromptText, setPromptText] = useState<string>();
+
+  // =================================== Pre_set =================================================================
+  // Pre_set 열고 닫기
+  const [Pre_set_box_wrap_open, setPre_set_box_wrap_open] = useState(false);
+  // pre-set 선택한 아이템 배열
+  const [items, setItems] = useState<CheckboxValueType[]>([]);
+  // pre-set 선택한 아이템들 textarea 보여주기
+  const [itemsText, setItemsText] = useState<string>();
+
+  // 이펙트
+  const [Impact, setImpact] = useState<CheckboxValueType[]>([]);
+  const onChangeImpact = (checkedValues: CheckboxValueType[]) => {
+    setImpact(checkedValues);
+  };
+
+  // 조명
+  const [Lighting, setLighting] = useState<CheckboxValueType[]>([]);
+  const onChangeLighting = (checkedValues: CheckboxValueType[]) => {
+    setLighting(checkedValues);
+  };
+
+  // 렌더
+  const [Render, setRender] = useState<CheckboxValueType[]>([]);
+  const onChangeRender = (checkedValues: CheckboxValueType[]) => {
+    setRender(checkedValues);
+  };
+
+  // 아티스트
+  const [Artist, setArtist] = useState<CheckboxValueType[]>([]);
+  const onChangeArtist = (checkedValues: CheckboxValueType[]) => {
+    setArtist(checkedValues);
+  };
+
+  // 상세
+  const [Details, setDetails] = useState<CheckboxValueType[]>([]);
+  const onChangeDetails = (checkedValues: CheckboxValueType[]) => {
+    setDetails(checkedValues);
+  };
+
+  // 뷰 세팅
+  const [View, setView] = useState<CheckboxValueType[]>([]);
+  const onChangeView = (checkedValues: CheckboxValueType[]) => {
+    setView(checkedValues);
+  };
+
+  useEffect(() => {
+    const items = [...Impact, ...Lighting, ...Render, ...Artist, ...Details, ...View];
+    setItems(items);
+    setItemsText(items.join());
+  }, [Impact, Lighting, Render, Artist, Details, View]);
+  // ============================================================================================================================
+
+  // Prompt, Pre_set 내용 합치기
+  const [PromptAndPre_set, setPromptAndPre_set] = useState<string>();
+
+  useEffect(() => {
+    const text = PromptText + "," + itemsText;
+    console.log(text);
+  }, [PromptText, itemsText]);
+  // ===============================================================================================================
+
+  // 이미지 받아오기
+  const [imgFile, setImgFile] = useState<any>("");
+  const imgRef = useRef<any>();
+
+  // 이미지 업로드 input의 onChange
+  const saveImgFile = () => {
+    const file = imgRef.current.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImgFile(reader.result);
+    };
+  };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 mx-40 max-w-8xl">
+    <div className="flex flex-col justify-center min-h-screen py-2 mx-40 items-left max-w-8xl">
       <Header />
-      <main className="flex flex-col items-center justify-center flex-1 w-full px-4 mt-4 mb-8 text-center sm:mb-0">
-        <h1 className="max-w-4xl mx-auto mb-5 text-4xl font-bold tracking-normal text-black font-display sm:text-6xl">
-          Generate your <span className="text-green-600"> Architecture</span>
-        </h1>
-        <ResizablePanel>
-          <AnimatePresence mode="wait">
-            <motion.div className="flex flex-col items-center justify-between w-full mt-4">
-              {!restoredImage && (
-                <>
-                  <div className="w-full max-w-sm space-y-4">
-                    <div className="flex items-center mt-3 space-x-3">
-                      <Image src="/number-1-white.svg" width={30} height={30} alt="1 icon" />
-                      <p className="font-medium text-left">Choose your room theme.</p>
-                    </div>
-                    <DropDown theme={theme} setTheme={(newTheme) => setTheme(newTheme as typeof theme)} themes={themes} />
-                  </div>
-                  <div className="w-full max-w-sm space-y-4">
-                    <div className="flex items-center mt-10 space-x-3">
-                      <Image src="/number-2-white.svg" width={30} height={30} alt="1 icon" />
-                      <p className="font-medium text-left">Choose your room type.</p>
-                    </div>
-                    <DropDown theme={room} setTheme={(newRoom) => setRoom(newRoom as typeof room)} themes={rooms} />
-                  </div>
-                  <div className="w-full max-w-sm mt-4">
-                    <div className="flex items-center mt-6 space-x-3 w-96">
-                      <Image src="/number-3-white.svg" width={30} height={30} alt="1 icon" />
-                      <p className="font-medium text-left">Upload a picture of your room.</p>
-                    </div>
-                  </div>
-                </>
-              )}
-              {restoredImage && (
-                <div>
-                  Here's your remodeled <b>{room.toLowerCase()}</b> in the <b>{theme.toLowerCase()}</b> theme!{" "}
-                </div>
-              )}
-              <div className={`${restoredLoaded ? "visible mt-6 -ml-8" : "invisible"}`}>
-                <Toggle
-                  className={`${restoredLoaded ? "visible mb-6" : "invisible"}`}
-                  sideBySide={sideBySide}
-                  setSideBySide={(newVal) => setSideBySide(newVal)}
-                />
-              </div>
-              {restoredLoaded && sideBySide && <CompareSlider original={originalPhoto!} restored={restoredImage!} />}
-              {!originalPhoto && <UploadDropZone />}
-              {originalPhoto && !restoredImage && <Image alt="original photo" src={originalPhoto} className="rounded-2xl h-96" width={475} height={475} />}
-              {restoredImage && originalPhoto && !sideBySide && (
-                <div className="flex flex-col sm:space-x-4 sm:flex-row">
-                  <div>
-                    <h2 className="mb-1 text-lg font-medium">Original Room</h2>
-                    <Image alt="original photo" src={originalPhoto} className="relative w-full rounded-2xl h-96" width={475} height={475} />
-                  </div>
-                  <div className="mt-8 sm:mt-0">
-                    <h2 className="mb-1 text-lg font-medium">Generated Room</h2>
-                    <a href={restoredImage} target="_blank" rel="noreferrer">
-                      <Image
-                        alt="restored photo"
-                        src={restoredImage}
-                        className="relative w-full mt-2 rounded-2xl sm:mt-0 cursor-zoom-in h-96"
-                        width={475}
-                        height={475}
-                        onLoadingComplete={() => setRestoredLoaded(true)}
-                      />
-                    </a>
-                  </div>
-                </div>
-              )}
-              {loading && (
-                <button disabled className="w-40 px-4 pt-2 pb-3 mt-8 font-medium text-white bg-green-500 rounded-full">
-                  <span className="pt-4">
-                    <LoadingDots color="white" style="large" />
-                  </span>
-                </button>
-              )}
-              {error && (
-                <div className="px-4 py-3 mt-8 text-red-700 bg-red-100 border border-red-400 rounded-xl" role="alert">
-                  <span className="block sm:inline">{error}</span>
-                </div>
-              )}
-              <div className="flex justify-center space-x-2">
-                {originalPhoto && !loading && (
+      <main className="flex flex-1 w-full px-4 mt-4 mb-8 text-center sm:mb-0">
+        <div className={classNames({ [styles.BrowserBar_wrap]: true, [styles.close]: bar_close })}>
+          <div className={styles.BrowserBar_box}>
+            <div className={styles.BrowserBar_head}>
+              <i className="xi-pen-o"></i>
+              <p>Generate your Architecture!</p>
+              <button
+                onClick={() => {
+                  setBar_close(true);
+                }}
+              >
+                <i className="xi-arrow-left"></i>
+              </button>
+            </div>
+            <div className={styles.content_wrap}>
+              <div className={styles.content_top_wrap}>
+                <div className={classNames({ [styles.drawer_wrap]: true, [styles.open]: drawer_1 })}>
                   <button
+                    className={styles.drawer_btn}
                     onClick={() => {
-                      setOriginalPhoto(null);
-                      setRestoredImage(null);
-                      setRestoredLoaded(false);
-                      setError(null);
+                      setDrawer_1(!drawer_1);
                     }}
-                    className="px-4 py-2 mt-8 font-medium text-white transition bg-green-500 rounded-full hover:bg-green-500/80"
                   >
-                    Generate New Room
+                    <i className="xi-paper-o"></i>
+                    <p>Prompt</p>
+                    <div className={styles.angle_icon}>
+                      <i className="xi-angle-down"></i>
+                    </div>
                   </button>
-                )}
-                {restoredLoaded && (
+                  <div className={styles.drawer_content}>
+                    <div className={styles.Prompt_wrap}>
+                      <textarea
+                        name=""
+                        id=""
+                        placeholder="Type your text here!"
+                        value={PromptText}
+                        onChange={(e) => {
+                          setPromptText(e.target.value);
+                        }}
+                      ></textarea>
+                      <button
+                        className={styles.Pre_set_btn}
+                        onClick={() => {
+                          setPre_set_box_wrap_open(true);
+                        }}
+                      >
+                        Style Pre-set
+                      </button>
+
+                      <div className={classNames({ [styles.Pre_set_box_wrap]: true, [styles.open]: Pre_set_box_wrap_open })}>
+                        <div className={styles.Pre_set_box}>
+                          <h3>LoRA</h3>
+                          <div className={styles.Material_wrap}>
+                            <ScrollContainer className="scroll-container">
+                              <Checkbox.Group onChange={onChangeImpact}>
+                                <Col>
+                                  <Checkbox value="Junglim">Junglim</Checkbox>
+                                </Col>
+                                <Col>
+                                  <Checkbox value="Atmospheric">Atmospheric</Checkbox>
+                                </Col>
+                                <Col>
+                                  <Checkbox value="Cinematic">Cinematic</Checkbox>
+                                </Col>
+                                <Col>
+                                  <Checkbox value="Parametric">Parametric</Checkbox>
+                                </Col>
+                                <Col>
+                                  <Checkbox value="Futurism">Futurism</Checkbox>
+                                </Col>
+                              </Checkbox.Group>
+                            </ScrollContainer>
+                            <i className="xi-arrows-h"></i>
+                          </div>
+
+                          <h3>Environment</h3>
+                          <div className={styles.Material_wrap}>
+                            <ScrollContainer className="scroll-container">
+                              <Checkbox.Group onChange={onChangeLighting}>
+                                <Col>
+                                  <Checkbox value="Raining">Raining</Checkbox>
+                                </Col>
+                                <Col>
+                                  <Checkbox value="Snowing">Snowing</Checkbox>
+                                </Col>
+                                <Col>
+                                  <Checkbox value="in City">in City</Checkbox>
+                                </Col>
+                                <Col>
+                                  <Checkbox value="Studio Light">Studio Light</Checkbox>
+                                </Col>
+                                <Col>
+                                  <Checkbox value="Blue Lighting">Blue Lighting</Checkbox>
+                                </Col>
+                              </Checkbox.Group>
+                            </ScrollContainer>
+                            <i className="xi-arrows-h"></i>
+                          </div>
+
+                          <h3>Architect style</h3>
+                          <div className={styles.Material_wrap}>
+                            <ScrollContainer className="scroll-container">
+                              <Checkbox.Group onChange={onChangeArtist}>
+                                <Col>
+                                  <Checkbox value="Zaha Hadid">Zaha Hadid</Checkbox>
+                                </Col>
+                                <Col>
+                                  <Checkbox value="OMA">OMA</Checkbox>
+                                </Col>
+                                <Col>
+                                  <Checkbox value="MVRDV">MVRDV</Checkbox>
+                                </Col>
+                                <Col>
+                                  <Checkbox value="Jean Nouvel">Jean Nouvel</Checkbox>
+                                </Col>
+                                <Col>
+                                  <Checkbox value="SANAA">SANAA</Checkbox>
+                                </Col>
+                              </Checkbox.Group>
+                            </ScrollContainer>
+                            <i className="xi-arrows-h"></i>
+                          </div>
+
+                          <h3>상세</h3>
+                          <div className={styles.Material_wrap}>
+                            <ScrollContainer className="scroll-container">
+                              <Checkbox.Group onChange={onChangeDetails}>
+                                <Col>
+                                  <Checkbox value="Detailed">Detailed</Checkbox>
+                                </Col>
+                                <Col>
+                                  <Checkbox value="Finely Detailed">Finely Detailed</Checkbox>
+                                </Col>
+                                <Col>
+                                  <Checkbox value="Highly Detailed">Highly Detailed</Checkbox>
+                                </Col>
+                                <Col>
+                                  <Checkbox value="Detail">Detail</Checkbox>
+                                </Col>
+                                <Col>
+                                  <Checkbox value="Texture">Texture</Checkbox>
+                                </Col>
+                              </Checkbox.Group>
+                            </ScrollContainer>
+                            <i className="xi-arrows-h"></i>
+                          </div>
+
+                          <h3>뷰 세팅</h3>
+                          <div className={styles.Material_wrap}>
+                            <ScrollContainer className="scroll-container">
+                              <Checkbox.Group onChange={onChangeView}>
+                                <Col>
+                                  <Checkbox value="Front">Front</Checkbox>
+                                </Col>
+                                <Col>
+                                  <Checkbox value="Exterior">Exterior</Checkbox>
+                                </Col>
+                                <Col>
+                                  <Checkbox value="Interior">Interior</Checkbox>
+                                </Col>
+                                <Col>
+                                  <Checkbox value="Outside">Outside</Checkbox>
+                                </Col>
+                                <Col>
+                                  <Checkbox value="Inside">Inside</Checkbox>
+                                </Col>
+                                <Col>
+                                  <Checkbox value="Isometric">Isometric</Checkbox>
+                                </Col>
+                              </Checkbox.Group>
+                            </ScrollContainer>
+                            <i className="xi-arrows-h"></i>
+                          </div>
+
+                          <textarea
+                            name=""
+                            id=""
+                            value={itemsText}
+                            onChange={(e) => {
+                              setItemsText(e.target.value);
+                            }}
+                          ></textarea>
+
+                          <div className={styles.Pre_set_Check_btn_wrap}>
+                            <button
+                              className={styles.Pre_set_Check_btn}
+                              onClick={() => {
+                                setPre_set_box_wrap_open(false);
+                              }}
+                            >
+                              OK
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={classNames({ [styles.drawer_wrap]: true, [styles.open]: drawer_2 })}>
                   <button
+                    className={styles.drawer_btn}
                     onClick={() => {
-                      downloadPhoto(restoredImage!, appendNewToName(photoName!));
+                      setDrawer_2(!drawer_2);
                     }}
-                    className="px-4 py-2 mt-8 font-medium text-black transition bg-white border rounded-full hover:bg-gray-100"
                   >
-                    Download Generated Room
+                    <i className="xi-image-o"></i>
+                    <p>Image 첨부</p>
+                    <i className="xi-angle-down"></i>
                   </button>
-                )}
+                  <div className={styles.drawer_content}>
+                    <div className={styles.img_add_wrap}>
+                      <form>
+                        <label className={styles.ImageFile_label} htmlFor="profileImg">
+                          {imgFile ? (
+                            <img src={imgFile ? imgFile : ""} alt="" />
+                          ) : (
+                            <div className={styles.noImg}>
+                              <p>
+                                Click here to <br />
+                                Select image!
+                              </p>
+                              <i className="xi-image-o"></i>
+                            </div>
+                          )}
+                        </label>
+                        <input type="file" accept="image/*" id="profileImg" onChange={saveImgFile} ref={imgRef} />
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={classNames({ [styles.drawer_wrap]: true, [styles.open]: drawer_3 })}>
+                  <button
+                    className={styles.drawer_btn}
+                    onClick={() => {
+                      setDrawer_3(!drawer_3);
+                    }}
+                  >
+                    <i className="xi-tune"></i>
+                    <p>Size 입력</p>
+                    <i className="xi-angle-down"></i>
+                  </button>
+                  <div className={styles.drawer_content}>
+                    <ul className={styles.size_list}>
+                      <li>
+                        <input type="radio" name="size" id="size1" />
+                        <label htmlFor="size1">256 x 256</label>
+                      </li>
+                      <li>
+                        <input type="radio" name="size" id="size2" />
+                        <label htmlFor="size2">512 x 512</label>
+                      </li>
+                      <li>
+                        <input type="radio" name="size" id="size3" />
+                        <label htmlFor="size3">1024 x 1024</label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
-            </motion.div>
-          </AnimatePresence>
-        </ResizablePanel>
+              <div className={styles.content_bottom_wrap}>
+                <button className={styles.Generate_btn}>GENERATE</button>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.close_bar}>
+            <div className={styles.close_bar_head}>
+              <i className="xi-pen-o"></i>
+            </div>
+            <div className={styles.close_bar_body}>
+              <p>Browser</p>
+              <button
+                onClick={() => {
+                  setBar_close(false);
+                }}
+              >
+                <i className="xi-angle-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.imageContainer}>
+          {/* If there's an image, display it, otherwise display placeholder text */}
+          {imgFile ? <img src={imgFile} alt="Generated Image" style={{ maxWidth: "100%", maxHeight: "100%" }} /> : <span>Image Placeholder</span>}
+        </div>
+
+        <div className="carouselContainer">{/* Place your carousel component here */}</div>
       </main>
-      <Footer />
     </div>
   );
-}
+};
+
+export default BrowserBar;
