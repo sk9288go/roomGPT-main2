@@ -1,0 +1,52 @@
+.TreeNode_wrap { display: flex; gap: 8px; 
+	/* align-items: center; */
+	position: relative;
+}
+.TreeNode_wrap::before { content: ''; width: 370px; height: 6px; background-color: #838383; position: absolute; top: 148px; left: -52px; }
+
+
+.TreeNode_box { padding: 8px; display: flex; flex-direction: column; position: relative; width: 272px; height: 297px; border-radius: 0 8px 8px 8px; transition: all 0.3s; }
+.TreeNode_box.Choice { background-color: #6cbe2e; }
+.TreeNode_box.Choice.close { background-color: transparent; }
+
+.TreeNode_box .TreeNode_btn_wrap { display: flex; align-items: center; justify-content: space-between; position: absolute; top: 0; left: 0; width: 109px; height: 32px; border: solid 0.5px #838383; background-color: #b4b4b4; border-radius: 0 0 8px 0; padding: 0 5px 0 9px; z-index: 2; }
+.TreeNode_box .TreeNode_btn_wrap .btn_wrap { display: flex; gap: 5px; }
+.TreeNode_box .TreeNode_btn_wrap .btn_wrap button { width: 21px; height: 21px; border-radius: 100%; border: solid 1px #fff; background-color: #fff; box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25); }
+
+
+.TreeNode_box .img_box .img_wrap { width: 256px; height: 256px; cursor: pointer; border-radius: 8px; z-index: 1; position: relative; border-radius: 8px; overflow: hidden; }
+
+.TreeNode_box.close .btn_wrap button:nth-child(1) i{ transform: rotate(0.5turn); }
+
+.TreeNode_box .Add_Variation_btn { font-size: 14px; width: 100%; height: 33px; border: solid 0.5px #838383; background-color: #d9d9d9; transition: all 0.3s; padding-top: 8px; position: absolute; bottom: 0; border-radius: 0 0 8px 8px; }
+.TreeNode_box .Add_Variation_btn:hover { background-color: #6cbe2e; }
+
+
+
+.Plus_btn { display: flex; justify-content: center; align-items: center; width: 30px; height: 30px; border: solid 1px #fff; background-color: #fff; border-radius: 100%; box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25); position: absolute; top: 135px; left: 113%; z-index: 1; transition: all 0.3s; }
+.Plus_btn i { font-size: 20px; }
+
+.Plus_btn:hover { background-color: #6cbe2e; border: 1px solid #6cbe2e; }
+
+
+/* 이미지 크게보기 */
+.big_img_wrap { width: 100vw; height: 100vh; position: fixed; left: 0; top: 0; background-color: #00000080; display: none; justify-content: center; align-items: center; display: none; z-index: 999; }
+.big_img_wrap .img_wrap { width: calc(100% - 64px); height: calc(100% - 64px); max-width: 768px; max-height: 768px; position: relative; }
+.big_img_wrap .img_wrap img { width: 100%; height: 100%; }
+.big_img_wrap .img_wrap .btn_wrap { display: flex; justify-content: flex-end; gap: 16px; position: absolute; bottom: calc(100% + 4px); right: 16px; }
+.big_img_wrap .img_wrap .btn_wrap i { font-size: 30px; color: #fff; }
+
+
+
+
+.big_img_wrap.open { display: flex; }
+
+/* 이미지 안보기 */
+.img_box { display: block; height: 281px; position: relative; opacity: 1; transition: all 0.3s; }
+.img_box.close { opacity: 0; cursor: unset; pointer-events: none; }
+
+
+
+
+
+

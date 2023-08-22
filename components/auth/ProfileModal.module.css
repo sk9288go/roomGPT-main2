@@ -1,0 +1,21 @@
+.ProfileModal_wrap { width: 640px; padding: 25px 0 16px; background-color: #E6E6E6; border-radius: 7px; display: flex; justify-content: center; align-items: center; flex-direction: column; }
+.h2_wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-bottom: 24px; }
+.h2_wrap h2 { font-size: 18px; font-weight: 600; }
+.h2_wrap p { font-size: 12px; font-weight: 400; }
+
+.input_list { display: flex; width: 480px; flex-direction: column; gap: 8px; margin-bottom: 32px; }
+.input_box { width: 100%; display: flex; justify-content: space-between; align-items: center; }
+.input_box > p { width: 150px; text-align: center; font-size: 14px; }
+.input_box input { width: 284px; height: 30px; padding: 0 16px; border-radius: 2px; border: solid 1px #e0e0e0; text-align: center; font-size: 14px; }
+.input_box input:focus { border: solid 2px #6cbe2e; background-color: #e6e6e6; }
+.input_box input::placeholder { font-size: 14px; color: #8d8d8d; }
+
+
+.btn_wrap { display: flex; gap: 16px; width: 480px; justify-content: flex-end; }
+.btn_wrap button { width: 80px; height: 24px; border-radius: 5px; font-size: 12px; }
+.btn_wrap .White_btn { border: solid 0.2px #e0e0e0; background-color: #fff; color: #959595; }
+.btn_wrap .Green_btn { background-color: #559625; color: #fff; }
+.btn_wrap .White_btn:hover { background-color: rgba(44, 44, 44, 0.5); color: #fff; }
+.btn_wrap .Green_btn:hover { background-color: #335a15; color: #fff; }
+
+

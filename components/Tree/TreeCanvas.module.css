@@ -1,0 +1,17 @@
+.TreeCanvas_wrap { width: 100vw; height: 100vh; }
+
+.TreeCanvas_box { padding: 80px 640px; width: 100%; min-width: calc(100vw + 600px); min-height: 100vh; display: flex; align-items: center; }
+
+.tree_img_list { display: flex; flex-direction: column; gap: 72px; align-items: flex-start; }
+
+/* .tree_img_list li { display: flex; align-items: center; gap: 100px; position: relative; padding: 20px; background-color: #0000001A; border-radius: 16px; } */
+.tree_img_list li { display: flex; gap: 100px; position: relative;  
+	/* background-color: #0000001A; */
+	border-radius: 16px; }
+.tree_img_list li::before { width: 6px; height: calc(100% - 300px); background-color: #838383; content: ''; position: absolute; left: 320px; top: 50%; transform: translateY(-50%); }
+
+
+/* .tree_img_list li .tree_box { width: 256px; height: 281px; background-color: red; position: relative; } */
+
+.all_open_btn { position: fixed; right: 100px; top: 100px; }
+

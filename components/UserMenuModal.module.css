@@ -1,0 +1,14 @@
+.UserMenuModal_wrap { position: absolute; left: 0; top: calc(100% + 14px); display: flex; flex-direction: column; gap: 10px; }
+.UserMenuModal_wrap button { width: 157px; height: 27px; border-radius: 8px; background: rgba(0, 0, 0, 0.25); padding: 0 16px; display: flex; align-items: center; gap: 16px; color: #fff; font-size: 12px; }
+.UserMenuModal_wrap button > i { font-size: 20px; color: #fff; }
+
+
+
+
+
+
+
+
+
+
+

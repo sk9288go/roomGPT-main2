@@ -1,0 +1,142 @@
+.ProjectBar_wrap {
+  width: 312px;
+  height: calc(100vh - 64px);
+  max-height: 920px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  position: relative;
+  overflow: hidden;
+  transition: width 0.3s;
+}
+
+.ProjectBar_box {
+  width: 312px;
+  height: 100%;
+  z-index: 1;
+  position: relative;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+.ProjectBar_head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 18px 0;
+  height: 100px;
+  background: #333333;
+}
+.ProjectBar_head i {
+  color: #fff;
+  font-size: 30px;
+}
+.ProjectBar_head p {
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+}
+.content_wrap {
+  width: 100%;
+  height: calc(100% - 100px);
+  padding: 27px 18px 18px;
+  background-color: rgba(44, 44, 44, 0.5);
+  position: relative;
+}
+.content_wrap input {
+  width: 100%;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 8px;
+  background-color: #333;
+  border: unset;
+  color: #fff;
+  font-size: 16px;
+  margin-bottom: 27px;
+}
+.content_wrap input::placeholder {
+  color: rgba(198, 198, 198, 0.6);
+  font-weight: 600;
+}
+.content_wrap textarea {
+  width: 100%;
+  height: calc(100% - 72px);
+  padding: 13px 16px;
+  border-radius: 8px;
+  background-color: #333;
+  border: unset;
+  color: #fff;
+  font-size: 16px;
+  outline: unset;
+}
+.content_wrap textarea::placeholder {
+  color: rgba(198, 198, 198, 0.6);
+  font-weight: 600;
+}
+.content_wrap .save_btn {
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+}
+.content_wrap .save_btn i {
+  color: #fff;
+  font-size: 27px;
+}
+
+.close_bar {
+  width: 30px;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 0;
+  opacity: 0;
+  transition: all 0.3s;
+}
+.close_bar_head {
+  width: 100%;
+  height: 100px;
+  background-color: #333;
+  display: flex;
+  justify-content: center;
+  padding-top: 56px;
+}
+.close_bar_head i {
+  font-size: 22px;
+  color: #fff;
+}
+
+.close_bar_body {
+  width: 100%;
+  height: calc(100% - 100px);
+  background-color: rgba(44, 44, 44, 0.5);
+  position: relative;
+}
+.close_bar_body p {
+  color: #fff;
+  position: absolute;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  width: max-content;
+  transform: rotate(0.5turn) translateX(50%);
+  left: 50%;
+  top: 100px;
+}
+.close_bar_body button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.close_bar_body button i {
+  font-size: 28px;
+  color: #fff;
+}
+
+.ProjectBar_wrap.close {
+  width: 30px;
+}
+.ProjectBar_wrap.close .ProjectBar_box {
+  opacity: 0;
+}
+.ProjectBar_wrap.close .close_bar {
+  z-index: 2;
+  opacity: 1;
+}
