@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { Checkbox, Col, Row } from "antd";
+import { Checkbox, Col } from "antd";
 import type { CheckboxValueType } from "antd/es/checkbox/Group";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -9,6 +9,7 @@ import styles from "../../components/BrowserBar.module.css";
 import classNames from "classnames";
 import Image from "next/image";
 import ScrollContainer from "react-indiana-drag-scroll";
+
 
 const BrowserBar = () => {
   //const router = useRouter();
@@ -95,6 +96,7 @@ const BrowserBar = () => {
     <div className="flex flex-col justify-center min-h-screen py-2 mx-40 items-left max-w-8xl">
       <Header />
       {/* icon 불러오는 링크 */}
+      
       <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css" />
       {/* second div  */}
       <main className="flex flex-1 w-full px-4 mt-4 mb-8 text-center sm:mb-0">
@@ -114,7 +116,7 @@ const BrowserBar = () => {
                   className={styles.drawer_btn}
                   onClick={() => {setDrawer_1(!drawer_1);}}>
                   <i className="xi-paper-o"></i>
-                  <p>Prompt</p>
+                  <p>Enter Prompt</p>
                   <div className={styles.angle_icon}>
                     <i className="xi-angle-down"></i>
                   </div>
@@ -142,7 +144,7 @@ const BrowserBar = () => {
                       <div className={styles.Pre_set_box}>
                         <h3>LoRA</h3>
                         <div className={styles.Material_wrap}>
-                          <ScrollContainer className="scroll-container">
+                          <ScrollContainer className="scroll-container" horizontal = {true}>
                             <Checkbox.Group onChange={onChangeImpact}>
                               <Col><Checkbox value="<Junglim exterior>(1.0)">Junglim exterior</Checkbox></Col>
                               <Col><Checkbox value="<Junglim Interior>(1.0)">Junglim Interior</Checkbox></Col>
@@ -225,7 +227,7 @@ const BrowserBar = () => {
                   className={styles.drawer_btn}
                   onClick={() => {setDrawer_2(!drawer_2);}}>
                   <i className="xi-image-o"></i>
-                  <p>Image 첨부</p>
+                  <p>Insert Image</p>
                   <div className={styles.angle_icon}>
                     <i className="xi-angle-down"></i>
                   </div> 
@@ -256,7 +258,7 @@ const BrowserBar = () => {
                   className={styles.drawer_btn}
                   onClick={() => {setDrawer_3(!drawer_3);}}>
                   <i className="xi-tune"></i>
-                  <p>Sketch</p>
+                  <p>Add Sketch</p>
                   <div className={styles.angle_icon}>
                     <i className="xi-angle-down"></i>
                   </div> 
@@ -305,7 +307,7 @@ const BrowserBar = () => {
                   }}
                 >
                   <i className="xi-tune"></i>
-                  <p>Size 입력</p>
+                  <p>Enter Size</p>
                   <div className={styles.angle_icon}>
                   <i className="xi-angle-down"></i>
                   </div> 

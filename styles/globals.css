@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @media (min-width: 400px) {
   .background-gradient::before {
     background: rgb(226, 226, 226);
@@ -25,3 +26,20 @@
     z-index: -1; /* Ensure the dots are behind the content */
   }
 }
+
+
+@font-face {
+  font-family: 'KimjungchulGothic';
+  src: url('../public/static/fonts/KimjungchulGothic-Light.ttf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'KimjungchulGothic';
+  src: url('../public/static/fonts/KimjungchulGothic-Bold.ttf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+.bar_wrap { display: flex; height: 100%; align-items: center; position: absolute; top: 0; left: 0; z-index: 3; }
+

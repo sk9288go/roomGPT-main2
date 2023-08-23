@@ -29,8 +29,8 @@ function BeforeAfterSlider({ beforeImage, afterImage, label }) {
       <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50" style={{ clipPath: `inset(0 0 0 ${sliderPosition}%` }}>
         <img src={afterImage} alt="After" className="w-full h-auto" />
       </div>
-      <div className="absolute top-0 left-0 w-2 h-full bg-white" style={{ left: `calc(${sliderPosition}% - 1px)` }}></div>
-      <div className="absolute bottom-0 left-0 w-full p-4 text-white bg-black bg-opacity-50">{label}</div>
+      <div className="absolute top-0 left-0 w-2 h-full bg-grey" style={{ left: `calc(${sliderPosition}% - 1px)` }}></div>
+      <div className="absolute bottom-0 left-0 w-full p-1 text-black bg-white bg-opacity-40">{label}</div>
     </div>
   );
 }
