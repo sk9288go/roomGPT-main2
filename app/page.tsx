@@ -8,6 +8,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import React, { useState } from "react";
 import TypistAnim from "../components/TypistAnim";
+import BeforeAfterSlider from "../components/BeforeAfterSlider";
 //import { useLanguage } from "../components/languageProvider";
 import Card from "../components/card";
 
@@ -101,6 +102,36 @@ export default function Page() {
           <Card title="Precision and Quality" content="Dive deep into the world of architectural design with our state-of-the-art AI models." />
           <Card title="From Concept to Visualization" content="From concept to final visualization, make your architectural dreams come true with EasyAI." />
         </div>
+
+        
+        <div className="w-full px-4 mt-40 mb-100 min-h-[400px] bg-gray-200">
+    {/* ... other content ... */}
+    <div className="my-20">
+        <h2 className="text-4xl font-bold mb-4 text-center mb-14">
+            See How Our AI Transforms Sketches to Realistic Architectures
+        </h2>
+        <BeforeAfterSlider 
+            beforeImage="/before.png"
+            afterImage="/after.png"
+            label="Slide to view the transformation"
+        />
+    </div>
+    <div className="text-center mt-10 px-6">
+        <h3 className="text-3xl font-bold mb-4">
+            Introducing ControlNet
+        </h3>
+        <p className="text-xl mb-6">
+            Our advanced AI system, ControlNet, transforms sketches into high-quality architectural images in mere moments. The transformation process utilizes cutting-edge algorithms and state-of-the-art techniques to ensure the highest quality output.
+        </p>
+        <h3 className="text-3xl font-bold mb-4">
+            Powered by OpenAI
+        </h3>
+        <p className="text-xl mb-6">
+            We're also integrating with OpenAI, enhancing our system capabilities. With the help of AI-assisted prompt engineering, user inputs are refined and optimized to generate superior architectural visualizations. This ensures that what you envision is translated into a refined architectural masterpiece.
+        </p>
+    </div>
+</div>
+
       </div>
       <Footer />
     </div>

@@ -11,17 +11,18 @@
 }
 
 .BrowserBar_box {
-  width: 100%;
+  width: 30%;
   z-index: 1;
   transition: opacity 0.3s;
+  min-width : 250px;
   border: 2px dashed #ccc;
 }
 .BrowserBar_head {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 40px 18px 0;
-  height: 100px;
+  padding: 20px 18px 0;
+  height: 50px;
 }
 .BrowserBar_head i {
   color: #000;
@@ -51,7 +52,7 @@
   height: 42px;
   border-radius: 8px;
   border: solid 1px #8f8f8f;
-  background-color: #e6e6e6;
+  background-color: rgb(243, 241, 241);
   padding: 0 32px;
   transition: all 0.3s;
 }
@@ -83,7 +84,7 @@
 }
 .drawer_wrap.open .drawer_btn {
   border: solid 3px #559625;
-  background-color: #e6e6e6;
+  background-color: #abfaa8;
 }
 .drawer_wrap.open .drawer_btn i {
   color: #559625;
@@ -107,7 +108,7 @@
   border-radius: 11px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
   border: solid 0.2px #d8d8d8;
-  background-color: #e6e6e6;
+  background-color: #ffffff;
   outline: unset;
   padding: 4px;
   font-size: 14px;
@@ -122,9 +123,10 @@
   height: 35px;
   border-radius: 11px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
-  border: solid 0.2px #d8d8d8;
-  background-color: #e6e6e6;
+  border: solid 0.2px #757575;
+  background-color: #f0f1f0;
   transition: all 0.3s;
+
 }
 .Prompt_wrap .Pre_set_btn:hover {
   background-color: #b4b4b4;
