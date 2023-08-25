@@ -16,7 +16,7 @@ const images = Array.from({ length: 13 }, (_, i) => `/generatedpic (${i + 1}).pn
 
 export default function Page() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  //const [lang, setLang] = useLanguage();
+  // const [lang, setLang] = useLanguage();
   const handleChange = (index) => {
     setCurrentIndex(index);
   };
@@ -102,41 +102,27 @@ export default function Page() {
           <Card title="Precision and Quality" content="Dive deep into the world of architectural design with our state-of-the-art AI models." />
           <Card title="From Concept to Visualization" content="From concept to final visualization, make your architectural dreams come true with EasyAI." />
         </div>
-
-        
         <div className="w-full px-40 mt-40 min-h-[400px]">
-    {/* ... other content ... */}
-    <div className="my-20">
-        <h2 className="font-bold text-center mb-14 sm:text-6xl">
-            AI Transforms Sketches to Realistic Architectures
-        </h2>
-        <BeforeAfterSlider 
-            beforeImage="/before.png"
-            afterImage="/after.png"
-            label="Slide to view the transformation"
-        />
-    </div>
-    <div className="text-center mt-10 px-6">
-        <h3 className="text-3xl font-bold mb-4">
-            Utilizing ControlNet
-        </h3>
-        <p className="text-xl mb-6">
-            Our advanced AI system, utilize ControlNet, transforms sketches into high-quality architectural images in mere moments. <br /> 
-            The transformation process utilizes cutting-edge algorithms and state-of-the-art techniques to ensure the highest quality output.
-        </p>
-        <h3 className="text-3xl font-bold mb-4">
-            Integrated OpenAI
-        </h3>
-        <p className="text-xl mb-6">
-            We're also integrating with Chat GPT, OpenAI API, enhancing our system capabilities. <br />
-            With the help of AI-assisted prompt engineering, user inputs are refined and optimized to generate superior architectural visualizations.<br />
-            This ensures that what you envision is translated into a refined architectural masterpiece.
-        </p>
-
-        
-    </div>
-</div>
-
+          {/* ... other content ... */}
+          <div className="my-20">
+            <h2 className="font-bold text-center mb-14 sm:text-6xl">AI Transforms Sketches to Realistic Architectures</h2>
+            <BeforeAfterSlider beforeImage="/before.png" afterImage="/after.png" label="Slide to view the transformation" />
+          </div>
+          <div className="px-6 mt-10 text-center">
+            <h3 className="mb-4 text-3xl font-bold">Utilizing ControlNet</h3>
+            <p className="mb-6 text-xl">
+              Our advanced AI system, utilize ControlNet, transforms sketches into high-quality architectural images in mere moments. <br />
+              The transformation process utilizes cutting-edge algorithms and state-of-the-art techniques to ensure the highest quality output.
+            </p>
+            <h3 className="mb-4 text-3xl font-bold">Integrated OpenAI</h3>
+            <p className="mb-6 text-xl">
+              We're also integrating with Chat GPT, OpenAI API, enhancing our system capabilities. <br />
+              With the help of AI-assisted prompt engineering, user inputs are refined and optimized to generate superior architectural visualizations.
+              <br />
+              This ensures that what you envision is translated into a refined architectural masterpiece.
+            </p>
+          </div>
+        </div>
       </div>
       <Footer />
     </div>

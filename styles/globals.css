@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @media (min-width: 400px) {
   .background-gradient::before {
     background: rgb(226, 226, 226);
@@ -27,19 +26,58 @@
   }
 }
 
-
 @font-face {
-  font-family: 'KimjungchulGothic';
-  src: url('../public/static/fonts/KimjungchulGothic-Light.ttf') format('opentype');
+  font-family: "KimjungchulGothic";
+  src: url("../public/static/fonts/KimjungchulGothic-Light.ttf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: 'KimjungchulGothic';
-  src: url('../public/static/fonts/KimjungchulGothic-Bold.ttf') format('opentype');
+  font-family: "KimjungchulGothic";
+  src: url("../public/static/fonts/KimjungchulGothic-Bold.ttf") format("opentype");
   font-weight: bold;
   font-style: normal;
 }
+.ant-checkbox-group.css-dev-only-do-not-override-diro6f {
+  width: min-content;
+  display: flex;
+  gap: 10px;
+}
 
-.bar_wrap { display: flex; height: 100%; align-items: center; position: absolute; top: 0; left: 0; z-index: 3; }
+.ant-checkbox {
+  display: none;
+}
 
+.ant-row {
+  flex-flow: unset;
+}
+
+.ant-checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  height: 27px;
+  font-size: 14px;
+  background: #d3d3d3;
+  border: 0.4px solid #838383;
+  border-radius: 11px;
+}
+.ant-checkbox-wrapper span {
+  padding: unset;
+  width: min-content;
+  white-space: nowrap;
+}
+.ant-checkbox-wrapper::after {
+  display: none;
+}
+.ant-checkbox-wrapper.ant-checkbox-wrapper-checked {
+  background: #6d6d6d;
+  border: 0.4px solid #838383;
+}
+.ant-checkbox-wrapper.ant-checkbox-wrapper-checked span {
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

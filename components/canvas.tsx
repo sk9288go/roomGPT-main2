@@ -1,47 +1,36 @@
-import * as React from "react";
-import { useEffect } from "react";
-import { ReactSketchCanvas } from "react-sketch-canvas";
-
+"use client";
+import React, { useRef, useState, useEffect } from "react";
+import { ReactSketchCanvas, ReactSketchCanvasRef } from "react-sketch-canvas";
 import { Undo as UndoIcon, Trash as TrashIcon } from "lucide-react";
 
-export default function Canvas({
-  startingPaths,
-  onScribble,
-  scribbleExists,
-  setScribbleExists,
-}) {
-  const canvasRef = React.useRef(null);
+interface CanvasProps {
+  onScribble?: (data: string) => void; // Updated to specify the base64 string type
+  scribbleExists?: boolean;
+  setScribbleExists?: (exists: boolean) => void;
+}
+
+const Canvas: React.FC<CanvasProps> = ({ onScribble = () => {}, scribbleExists = false, setScribbleExists = () => {} }) => {
+  // Declare canvasRef at the top of your component
+  const canvasRef = useRef<ReactSketchCanvasRef>(null); // specify the type if you have it, for now I'll use any
 
   useEffect(() => {
-    // Hack to work around Firfox bug in react-sketch-canvas
-    // https://github.com/vinothpandian/react-sketch-canvas/issues/54
-    document
-      .querySelector("#react-sketch-canvas__stroke-group-0")
-      ?.removeAttribute("mask");
-
-    loadStartingPaths();
+    document.querySelector("#react-sketch-canvas__stroke-group-0")?.removeAttribute("mask");
+    onChange();
   }, []);
 
-  async function loadStartingPaths() {
-    await canvasRef.current.loadPaths(startingPaths);
-    setScribbleExists(true);
-    onChange();
-  }
-
   const onChange = async () => {
-    const paths = await canvasRef.current.exportPaths();
-    localStorage.setItem("paths", JSON.stringify(paths, null, 2));
+    if (canvasRef.current) {
+      // check if canvasRef.current exists before accessing it
+      setScribbleExists(true);
 
-    if (!paths.length) return;
-
-    setScribbleExists(true);
-
-    const data = await canvasRef.current.exportImage("png");
-    onScribble(data);
+      // Note: Access methods using canvasRef.current
+      const data = await canvasRef.current.exportImage("base64");
+      onScribble(data);
+    }
   };
 
   const undo = () => {
-    canvasRef.current.undo();
+    canvasRef.current.undo(); // using ?. operator to ensure it won't throw if current is null
   };
 
   const reset = () => {
@@ -49,37 +38,46 @@ export default function Canvas({
     canvasRef.current.resetCanvas();
   };
 
+  const handleClose = async () => {
+    if (canvasRef.current) {
+      const data = await canvasRef.current.exportImage("base64");
+      onScribble(data);
+    }
+  };
   return (
-    <div className="relative">
+    <div className="relative ">
       {scribbleExists || (
         <div>
-          <div className="absolute grid w-full h-full p-3 place-items-center pointer-events-none text-xl">
-            <span className="opacity-40">Draw something here.</span>
+          <div className="absolute grid w-full h-full p-3 text-xl pointer-events-none place-items-center">
+            <span className="opacity-40">Draw something here. bombom</span>
           </div>
         </div>
       )}
 
       <ReactSketchCanvas
         ref={canvasRef}
-        className="w-full aspect-square border-none cursor-crosshair"
-        strokeWidth={4}
-        strokeColor="black"
+        className="w-full border-none aspect-square cursor-crosshair"
+        strokeWidth={2}
+        strokeColor="gray"
         onChange={onChange}
         withTimestamp={true}
       />
 
-      {scribbleExists && (
-        <div className="animate-in fade-in duration-700 text-left">
-          <button className="lil-button" onClick={undo}>
-            <UndoIcon className="icon" />
-            Undo
-          </button>
-          <button className="lil-button" onClick={reset}>
-            <TrashIcon className="icon" />
-            Clear
-          </button>
-        </div>
-      )}
+      <div className="text-left duration-700 animate-in fade-in">
+        <button className="lil-button" onClick={handleClose}>
+          Close & Save
+        </button>
+        <button className="lil-button" onClick={undo}>
+          <UndoIcon className="icon" />
+          Undo
+        </button>
+        <button className="lil-button" onClick={reset}>
+          <TrashIcon className="icon" />
+          Clear
+        </button>
+      </div>
     </div>
   );
-}
+};
+
+export default Canvas;
