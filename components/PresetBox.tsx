@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import ScrollContainer from "react-indiana-drag-scroll";
 import { Checkbox, Col, Row } from "antd";
 import styles from "../components/PresetBox.module.css";
-//import type { CheckboxValueType } from "antd/es/checkbox/Group";
+
 
 interface PresetBoxProps {
   PromptText?: string;

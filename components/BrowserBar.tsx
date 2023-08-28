@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import styles from "../components/BrowserBar.module.css";
 import classNames from "classnames";
 import Presetbox from "../components/PresetBox";
-import Canvas from "../components/canvas";
+import Canvas from "../components/Canvas";
 
 const BrowserBar: React.FC = () => {
   const [Pre_set_box_wrap_open, setPre_set_box_wrap_open] = useState(false);
@@ -44,7 +44,7 @@ const BrowserBar: React.FC = () => {
 
   return (
     <div className="flex flex-col py-2 items-left ">
-      <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css" />
+      {/* <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css" /> */}
 
       <div className={styles.BrowserBar_box}>
         <div className={styles.BrowserBar_head}>

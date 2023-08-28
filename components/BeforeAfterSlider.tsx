@@ -1,9 +1,15 @@
 import React, { useRef, useState, useEffect } from "react";
 
-function BeforeAfterSlider({ beforeImage, afterImage, label }) {
+interface BeforeAfterSliderProps {
+  beforeImage: any;
+  afterImage: any;
+  label: string;
+}
+
+function BeforeAfterSlider({ beforeImage, afterImage, label }: BeforeAfterSliderProps) {
   const [sliderPosition, setSliderPosition] = useState(50);
-  const containerRef = useRef(null);
-  const beforeImageRef = useRef(null);
+  const containerRef = useRef<any>(null);
+  const beforeImageRef = useRef<HTMLImageElement>(null);
   const [dimensions, setDimensions] = useState({ width: "60%", height: "60%" });
 
   useEffect(() => {
@@ -13,9 +19,9 @@ function BeforeAfterSlider({ beforeImage, afterImage, label }) {
         height: `${beforeImageRef.current.clientHeight}px`,
       });
     }
-  }, [beforeImageRef.current]);
+  }, []); // beforeImageRef.current를 제거
 
-  const handleMouseMove = (event) => {
+  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const rect = containerRef.current.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const width = rect.right - rect.left;
@@ -25,9 +31,9 @@ function BeforeAfterSlider({ beforeImage, afterImage, label }) {
 
   return (
     <div ref={containerRef} onMouseMove={handleMouseMove} className="relative mx-auto overflow-hidden" style={dimensions}>
-      <img ref={beforeImageRef} src={beforeImage} alt="Before" className="absolute top-0 left-0 w-full h-auto" />
+      <img ref={beforeImageRef} src={beforeImage} className="absolute top-0 left-0 w-full h-auto" />
       <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50" style={{ clipPath: `inset(0 0 0 ${sliderPosition}%` }}>
-        <img src={afterImage} alt="After" className="w-full h-auto" />
+        <img src={afterImage} className="w-full h-auto" />
       </div>
       <div className="absolute top-0 left-0 w-2 h-full bg-grey" style={{ left: `calc(${sliderPosition}% - 1px)` }}></div>
       <div className="absolute bottom-0 left-0 w-full p-1 text-black bg-white bg-opacity-40">{label}</div>

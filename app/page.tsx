@@ -6,7 +6,7 @@ import Header from "../components/Header";
 import SquigglyLines from "../components/SquigglyLines";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TypistAnim from "../components/TypistAnim";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
 //import { useLanguage } from "../components/languageProvider";
@@ -16,8 +16,9 @@ const images = Array.from({ length: 13 }, (_, i) => `/generatedpic (${i + 1}).pn
 
 export default function Page() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isClient, setIsClient] = useState(false);
   // const [lang, setLang] = useLanguage();
-  const handleChange = (index) => {
+  const handleChange = (index: number) => {
     setCurrentIndex(index);
   };
 
@@ -30,7 +31,7 @@ export default function Page() {
             <h1 className="px-4 ml-10 text-5xl font-bold tracking-normal text-gray-800 font-display sm:text-5xl">
               <span className="relative text-green-600 whitespace-nowrap sm:text-6xl">
                 <SquigglyLines />
-                <span className="relative"> EasyAI</span>
+                <span className="relative"> JL-EasyAI</span>
               </span>{" "}
               <br />
               <br />
@@ -90,7 +91,7 @@ export default function Page() {
         {/* increased margin-top and added min-height */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <Card
-            title="About EasyAI Architectural Images"
+            title="About JL-EasyAI Architectural Images"
             content="Our AI-powered platform allows you to create architectural images with unparalleled accuracy and precision."
           />
           <Card title="Precision and Quality" content="Dive deep into the world of architectural design with our state-of-the-art AI models." />

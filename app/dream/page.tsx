@@ -7,12 +7,11 @@ import BrowserBar from "../../components/BrowserBar";
 import defaultImage from "../../public/generatedpic (1).png"; // Import the default image
 
 export default function Page() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  //const [currentIndex, setCurrentIndex] = useState(0);
   const [currentImageUrl, setCurrentImageUrl] = useState("/generatedpic (1).png"); // Set default image
-
   const carouselImages = ["/generatedpic (1).png", "/generatedpic (2).png", "/generatedpic (3).png"];
-
-  const handleChange = (index) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const handleChange = (index: number) => {
     setCurrentIndex(index);
   };
 

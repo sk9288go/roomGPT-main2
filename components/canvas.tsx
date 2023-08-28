@@ -1,4 +1,3 @@
-"use client";
 import React, { useRef, useState, useEffect } from "react";
 import { ReactSketchCanvas, ReactSketchCanvasRef } from "react-sketch-canvas";
 import { Undo as UndoIcon, Trash as TrashIcon } from "lucide-react";
@@ -61,6 +60,8 @@ const Canvas: React.FC<CanvasProps> = ({ onScribble = () => {}, scribbleExists =
         strokeColor="gray"
         onChange={onChange}
         withTimestamp={true}
+        width="1200px"
+        height="800px"
       />
 
       <div className="text-left duration-700 animate-in fade-in">

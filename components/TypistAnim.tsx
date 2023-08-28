@@ -1,6 +1,5 @@
 import React, { FC } from "react";
-import { Container, Row, Col } from "reactstrap";
-import ReactRotatingText from "react-rotating-text";
+var ReactRotatingText = require("react-rotating-text");
 
 const TypistAnim: FC = () => {
   return (
